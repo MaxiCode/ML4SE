@@ -1,0 +1,17 @@
+root: 1
+no_asm: 0
+no_8x8dct: 0
+no_cabac: 1
+no_deblock: 0
+no_fast_pskip: 1
+no_mbtree: 0
+no_mixed_refs: 0
+no_weightb: 0
+rc_lookahead: 0
+rc_lookahead_20: 0
+rc_lookahead_40: 0
+rc_lookahead_60: 0
+ref: 0
+ref_1: 0
+ref_5: 0
+ref_9: 0
