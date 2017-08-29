@@ -865,6 +865,8 @@ class Helper_Functions :
     # tries to tweak an individual by randomly modify its elements 
     # (we want to stay in the valid area, so check constraints)
     def mutate(self, individual, constraint_model, max_mutations) :
+        import copy
+        import random
         tweaked_individual = copy.deepcopy(individual)
         tabu = copy.deepcopy(constraint_model.global_tabu_list)
         
@@ -961,35 +963,28 @@ class Helper_Functions :
     	new_population = copy.deepcopy(population)
     	return new_population
 
-
-
-def main():
-	# ---- execute the wanted algorythm and example ----
-	import random
-	import copy
-
-	# ---- Multi Objective ----
-	#testinstanz = MO_Wrapper('./project_public_2/', 'toy', ['feature1', 'feature2', 'feature3'], ['interactions1', 'interactions2', 'interactions3'])
-
-	#testinstanz.population.learn(100,100,500)
-
-
-	# ---- Single Objective ----
-	#testinstanz = Wrapper('./project_public_2/', 'busy')
-	testinstanz = Wrapper('./project_public_2/', 'toy')
-	#testinstanz = Wrapper('./project_public_1/', 'bdbc')
-	#testinstanz = Wrapper('./project_public_1/', 'h264')
-
-
-	#testinstanz.do_steady_state(max_rounds = 4000)
-	testinstanz.do_evolution(iterations = 100, u = 20, l = 100)
-
-
 if __name__ == '__main__':
 	# testing import stuff
-	import sys
-	bla = int(sys.argv[1])
-	print(bla)
-	# testing import stuff
-	
-	main()
+    import sys
+    arguments = sys.argv[1:]
+    #print(arguments)
+
+
+    # single 
+    if "h264" in arguments[0]:
+        testinstanz = Wrapper('./project_public_1/', 'h264')
+    elif "bdbc" in arguments[0]:
+        testinstanz = Wrapper('./project_public_1/', 'bdbc')
+    elif "busy" in arguments[0]:
+        testinstanz = Wrapper('./project_public_2/', 'busy')
+    elif "toy" in arguments[0]:
+        testinstanz = MO_Wrapper('./project_public_2/', 'toy', ['feature1', 'feature2', 'feature3'], ['interactions1', 'interactions2', 'interactions3'])
+        testinstanz.population.learn(100,100,500)
+    else:
+        print("could not load project")
+        print("Usage: optimize.py model.xml model_feature.txt model_interactions.txt")
+
+    #testinstanz.do_steady_state(max_rounds = 4000)
+    testinstanz.do_evolution(iterations = 100, u = 20, l = 100)
+
+        
